@@ -26,11 +26,23 @@ public class StepDefinitions {
 
 
     private Response makeGetRequest() {
-        return RestAssured.when().get(BASE_URL + "/artists");
+        return RestAssured.when().get(BASE_URL);
     }
 
     private Response makeGetRequest(int id) {
-        return RestAssured.when().get(BASE_URL + "/artists/" + id);
+        return RestAssured.when().get(BASE_URL + "/" + id);
+    }
+
+    private Response makePostRequest(String name) throws JSONException {
+        RestAssured.baseURI = BASE_URL ;
+        RequestSpecification request = RestAssured.given();
+        request.header("Content-Type", "application/json");
+
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("name", name);
+
+        request.body(requestParams.toString());
+        return request.post();
     }
 
     @When("I request a list of all the artists")
@@ -72,16 +84,9 @@ public class StepDefinitions {
 
     @When("I submit a new artist {string}")
     public void iSubmitANewArtist(String name) throws JSONException {
-        RestAssured.baseURI = BASE_URL ;
-        RequestSpecification request = RestAssured.given();
-        request.header("Content-Type", "application/json");
-
-        JSONObject requestParams = new JSONObject();
-        requestParams.put("name", name);
-
-        request.body(requestParams.toString());
-        response = request.post("/artists");
+        response = makePostRequest(name);
     }
+
 
     @Then("the response code is {int}")
     public void theResponseCodeIs(int code) {

@@ -34,12 +34,12 @@ public class HttpRequestTest {
 
     @Test
     public void artistsShouldReturn200Response() {
-        ResponseEntity<String> response = this.restTemplate.getForEntity(LOCALHOST + port + ARTISTS, String.class);
+        ResponseEntity<String> response = this.restTemplate.getForEntity(LOCALHOST + port, String.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
     }
 
     @Test
     public void shouldReturnOKResponse() throws Exception {
-        this.mockMvc.perform(get(ARTISTS)).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get(LOCALHOST + port)).andDo(print()).andExpect(status().isOk());
     }
 }
