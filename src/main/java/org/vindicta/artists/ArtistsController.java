@@ -1,10 +1,12 @@
 package org.vindicta.artists;
 
-import org.springframework.web.bind.annotation.*;
+import lombok.extern.apachecommons.CommonsLog;
+ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CommonsLog
 public class ArtistsController {
 
     private final ArtistsRepository repository;
