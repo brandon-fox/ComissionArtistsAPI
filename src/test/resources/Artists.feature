@@ -3,6 +3,12 @@ Feature: Storing information about artists details
   I want to interact with details about Vindicta's comission artists
   So that I can learn more about their unique traits
 
+  Scenario: Add an artist to the collection
+    When I submit a new artist "Joe Clark"
+    Then the response code is 200
+    When  I request a list of all the artists
+    Then the new artist "Joe Clark" is listed
+
   Scenario: Get a list of all artists
     When I request a list of all the artists
     Then I get back a list of artists
@@ -17,9 +23,3 @@ Feature: Storing information about artists details
     When I request an artist using their ID 1
     Then I get back that artists details
     And that artists details contains a list of skills
-
-  Scenario: Add an artist to the collection
-    When I submit a new artist "Joe Clark"
-    Then the response code is 200
-    When  I request a list of all the artists
-    Then the new artist "Joe Clark" is listed
